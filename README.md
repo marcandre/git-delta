@@ -1,24 +1,24 @@
 # Git::Delta
 
-TODO: Write a gem description
+Outputs the net number of lines added/removed by you for the current `git` directory.
+
+It sums the net change for each commit and output the sum of positive and negative contributions:
+
+	$ git-delta
+	123 - 100 = 23
+
+Net lines added: 23
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'git-delta'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install git-delta
+    gem install 'git-delta'
 
 ## Usage
 
-TODO: Write usage instructions here
+	$ git-delta -v
+	$ git-delta app lib
+	$ git-delta .js .coffee
+	$ git-delta --author=someone_else
 
 ## Contributing
 

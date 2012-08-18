@@ -1,4 +1,5 @@
 require "git-delta/version"
+require "git-delta/reporter"
 
 module Git
   module Delta
