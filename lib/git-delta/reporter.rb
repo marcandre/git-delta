@@ -47,7 +47,6 @@ module Git
       def git_log
         extra = extra_args.join(' ')
         extra << "--author=#{`git config user.email`.strip}" unless extra.include? '--author='
-        puts "git log --oneline --shortstat --no-merges #{extra} -- #{file_filter}"
         `git log --oneline --shortstat --no-merges #{extra} -- #{file_filter}`
       end
 
