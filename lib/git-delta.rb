@@ -1,2 +1,2 @@
-require "git-delta/version"
-require "git-delta/reporter"
+require_relative "git-delta/version"
+require_relative "git-delta/reporter"

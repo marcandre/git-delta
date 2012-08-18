@@ -17,6 +17,7 @@ module Git
           end
         end.compact
         (@warnings ||= []).concat(w)
+        self
       end
 
       def delta
@@ -31,12 +32,14 @@ module Git
       end
 
       def report(verbose = false)
-        data.each do |commit, plus, minus|
-          puts ("%4d %5d = %5d  " % [plus, minus, plus + minus]) + commit
-        end if verbose
+        if verbose
+          data.each do |commit, plus, minus|
+            puts ("%4d %5d = %5d  " % [plus, minus, plus + minus]) + commit
+          end
+          puts "** Warnings:", @warnings if @warnings && !@warnings.empty?
+        end
         plus, minus, delta = plus_minus_delta
         puts "#{plus} #{minus} = #{delta}"
-        puts "** Warnings:", @warnings if @warnings && !@warnings.empty?
       end
 
       def data
@@ -45,7 +48,7 @@ module Git
 
     private
       def git_log
-        extra = extra_args.join(' ')
+        extra = Array(extra_args).join(' ')
         extra << "--author=#{`git config user.email`.strip}" unless extra.include? '--author='
         `git log --oneline --shortstat --no-merges #{extra} -- #{file_filter}`
       end
@@ -57,7 +60,7 @@ module Git
         e << nil if e.empty?
         p.product(e).map do |path, ext|
           next path if ext.nil?
-          [path, '/*', ext.start_with?('.') || '.', ext].join
+          "'#{path}/*#{'.' unless ext.start_with?('.')}#{ext}'"
         end.join(' ')
       end
 

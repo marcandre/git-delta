@@ -15,10 +15,12 @@ Net lines added: 23
 
 ## Usage
 
-	$ git-delta -v
 	$ git-delta app lib
 	$ git-delta .js .coffee
 	$ git-delta --author=someone_else
+
+	$ git-delta -v
+	$ git-delta -rails
 
 ## Contributing
 
