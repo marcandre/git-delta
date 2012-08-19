@@ -7,6 +7,7 @@ It sums the net change for each commit and output the sum of positive and negati
 	$ git-delta
 	123 - 100 = 23
 
+The commits that made net contributions totalled 123 extra lines. The commits that made net code reductions removed a total of 100 lines.
 Net lines added: 23
 
 ## Installation
@@ -21,6 +22,8 @@ Net lines added: 23
 
 	$ git-delta -v
 	$ git-delta -rails
+
+Other options starting with `-` are passed on to `git`.
 
 ## Contributing
 

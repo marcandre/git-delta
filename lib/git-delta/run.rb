@@ -2,8 +2,11 @@ require_relative "../git-delta"
 
 class Git::Delta::Runner
   def run(argv = ARGV)
-    if ARGV.delete('-rails')
+    case ARGV.first
+    when '-rails'
       rails
+    when '-h', '--help'
+      puts "This is just a quick script, check the readme or the source code"
     else
       Git::Delta::Reporter.new(*parse_arg(argv)).filter_out(exclude).report(@verbose)
     end
