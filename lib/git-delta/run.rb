@@ -16,6 +16,9 @@ class Git::Delta::Runner
     @verbose ||= ARGV.delete('-v')
 
     split = Hash.new{|h, k| h['path']}.merge!('.' => [], '-' => [], 'path' => [])
+    if ARGV.delete('-new') # beurk
+      split['-'] << 'origin/master.. '
+    end
     argv.each{|a| split[a[0]] << a}
 
     split.values_at('path', '.', '-')
