@@ -43,7 +43,7 @@ module Git
       end
 
       def data
-        @data ||= parse_log(git_log)
+        @data ||= self.class.parse_log(git_log).reverse
       end
 
     private
@@ -64,11 +64,11 @@ module Git
         end.join(' ')
       end
 
-      def parse_log(log)
+      def self.parse_log(log)
         log.lines.each_slice(2).map do |commit, changes|
-          _, plus, minus = *changes.match(/.*changed, (\d+) insertions.* (\d+) deletions/)
-          [commit, plus.to_i, -minus.to_i]
-        end.reverse
+          _, plus, minus = *changes.match(/.*changed,\s*(\d+ insertions\(\+\),?\s*)?(\d+ deletions\(\-\))?/)
+          [commit.chomp, plus.to_i, -minus.to_i]
+        end
       end
     end
   end
