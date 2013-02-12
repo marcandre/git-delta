@@ -31,9 +31,9 @@ class Git::Delta::Runner
   def rails
     app = %w[app lib]
     categs = {
-      js: [app, %w[js coffee hbs]],
+      js: [app, %w[js coffee]],
       ruby: [app, %w[rb]],
-      erb: [app, %w[erb haml]],
+      erb: [app, %w[erb haml hbs]],
       app: [app, %w[erb haml rb js coffee hbs]],
       test: [%w[test spec], %w[rb]],
     }
