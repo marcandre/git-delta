@@ -50,7 +50,9 @@ module Git
       def git_log
         extra = Array(extra_args).join(' ')
         extra << "--author=#{`git config user.email`.strip}" unless extra.include? '--author='
-        `git log --oneline --shortstat --no-merges #{extra} -- #{file_filter}`
+        cmd = "git log --oneline --shortstat --no-merges #{extra} -- #{file_filter}"
+        # p cmd
+        `#{cmd}`
       end
 
       def file_filter
@@ -66,7 +68,7 @@ module Git
 
       def self.parse_log(log)
         log.lines.each_slice(2).map do |commit, changes|
-          _, plus, minus = *changes.match(/.*changed,\s*(\d+ insertions\(\+\),?\s*)?(\d+ deletions\(\-\))?/)
+          _, plus, minus = *changes.match(/.*changed,\s*(\d+ insertions?\(\+\),?\s*)?(\d+ deletions?\(\-\))?/)
           [commit.chomp, plus.to_i, -minus.to_i]
         end
       end
